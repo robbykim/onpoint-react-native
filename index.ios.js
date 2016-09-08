@@ -5,7 +5,8 @@ import {
   Text,
   View,
   ScrollView,
-  ActivityIndicatorIOS
+  ActivityIndicatorIOS,
+  RefreshControl
 } from 'react-native';
 
 // module that allows swiping
@@ -32,6 +33,7 @@ class OnPointFantasy extends Component {
     this.state = {
       games: [],
       isLoading: true,
+      refreshing: false,
     };
   }
 
@@ -104,6 +106,7 @@ class OnPointFantasy extends Component {
     this.setState({
       games: gamesArray,
       isLoading: false,
+      refreshing: false,
     });
   }
 
@@ -153,7 +156,14 @@ class OnPointFantasy extends Component {
             <View style={styles.title}>
               <Text>This Week's Games</Text>
             </View>
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh.bind(this)}
+                />
+              }
+            >
               {progressGames.length ? progressGames : <Text>All Games Have Completed This Week</Text>}
             </ScrollView>
           </View>
@@ -161,7 +171,14 @@ class OnPointFantasy extends Component {
             <View style={styles.title}>
               <Text>Completed Games</Text>
             </View>
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh.bind(this)}
+                />
+              }
+            >
               {completedGames.length ? completedGames : <Text>No Completed Games Available</Text>}
             </ScrollView>
           </View>
@@ -170,6 +187,10 @@ class OnPointFantasy extends Component {
     );
   }
 
+  _onRefresh() {
+    this.setState({ refreshing: true });
+    this.fetchSchedule();
+  }
   // when component first mounts, it will fetch the schedule
   componentDidMount() {
     this.fetchSchedule();
