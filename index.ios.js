@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  ActivityIndicatorIOS
 } from 'react-native';
 
 const Games = require('./js/games');
@@ -18,6 +19,7 @@ class OnPointFantasy extends Component {
     super();
     this.state = {
       games: [],
+      isLoading: true,
     };
   }
 
@@ -66,12 +68,48 @@ class OnPointFantasy extends Component {
         period: game.period,
         clock: game.clock,
         startTime: game.started_at,
+        status: game.status,
       });
     });
 
     this.setState({
       games: gamesArray,
+      isLoading: false,
     });
+  }
+
+  renderLoadingMessage() {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicatorIOS
+          animating={true}
+          color={'#fff'}
+          size={'small'}
+          style={{ margin: 15 }}
+        />
+        <Text style={{ color: '#fff' }}>Loading Scores</Text>
+      </View>
+    );
+  }
+
+  renderResults() {
+    const gamesArray = [];
+    this.state.games.forEach((game, index) => {
+      gamesArray.unshift(
+        <Games game={game} key={index} />
+      );
+    });
+
+    return (
+      <View>
+        <View style={styles.title}>
+          <Text>This Week's Games</Text>
+        </View>
+        <ScrollView>
+          {gamesArray}
+        </ScrollView>
+      </View>
+    );
   }
 
   componentDidMount() {
@@ -79,38 +117,29 @@ class OnPointFantasy extends Component {
   }
 
   render() {
-    const gamesArray = [];
-    this.state.games.forEach((game, index) => {
-      gamesArray.push(
-        <Games game={game} key={index} />
-      );
-    });
-
-    return (
-      <ScrollView>
-        {gamesArray}
-      </ScrollView>
-    );
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return this.renderLoadingMessage();
+    } else {
+      return this.renderResults();
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  loadingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+  title: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    backgroundColor: '#555',
+  }
 });
 
 AppRegistry.registerComponent('OnPointFantasy', () => OnPointFantasy);
