@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -12,7 +6,32 @@ import {
   View
 } from 'react-native';
 
+const CLIENT_KEY = 'uqqaepdgdqttrvgxn2g876g4';
+
 class OnPointFantasy extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentWeek: 0
+    };
+  }
+
+  fetchJSON() {
+    console.log('will fetch game info');
+    const url = `https://api.sportradar.us/nfl-ot1/games/2016/REG/schedule.json?api_key=${CLIENT_KEY}`;
+    console.log(url);
+    fetch(url)
+      .then(response => response.json())
+      .then(jsonData => {
+        console.log(jsonData);
+      })
+      .catch(err => console.log(`fetch error ${err}`));
+  }
+
+  componentDidMount() {
+    this.fetchJSON();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,7 +43,7 @@ class OnPointFantasy extends Component {
         </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+          Cmd+D or shake for dev menu TEST
         </Text>
       </View>
     );
