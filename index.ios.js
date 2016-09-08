@@ -8,6 +8,7 @@ import {
   ActivityIndicatorIOS
 } from 'react-native';
 
+const Swiper = require('react-native-swiper');
 const Games = require('./js/games');
 const teamStorage = require('./js/teamStorage');
 const CLIENT_KEY = '907bed7a31d8fa587d85ccea44e158c9';
@@ -93,21 +94,44 @@ class OnPointFantasy extends Component {
   }
 
   renderResults() {
-    const gamesArray = [];
+    const progressGames = [];
+    const completedGames = [];
     this.state.games.forEach((game, index) => {
-      gamesArray.unshift(
-        <Games game={game} key={index} />
-      );
+      if (game.status === 'ended') {
+        completedGames.unshift(
+          <Games game={game} key={index} />
+        );
+      } else {
+        progressGames.unshift(
+          <Games game={game} key={index} />
+        );
+      }
     });
 
     return (
       <View>
-        <View style={styles.title}>
-          <Text>This Week's Games</Text>
-        </View>
-        <ScrollView>
-          {gamesArray}
-        </ScrollView>
+        <Swiper
+          dot={<View style={styles.dot}/>}
+          activeDot={<View style={styles.activeDot}/>}
+          loop={false}
+        >
+          <View style={{flex: 1}}>
+            <View style={styles.title}>
+              <Text>This Week's Games</Text>
+            </View>
+            <ScrollView>
+              {progressGames.length ? progressGames : <Text>All Games Have Completed This Week</Text>}
+            </ScrollView>
+          </View>
+          <View style={{flex: 1}}>
+            <View style={styles.title}>
+              <Text>Completed Games</Text>
+            </View>
+            <ScrollView>
+              {completedGames.length ? completedGames : <Text>No Completed Games Available</Text>}
+            </ScrollView>
+          </View>
+        </Swiper>
       </View>
     );
   }
@@ -135,10 +159,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   title: {
-    flex: 1,
+    flex: 0.07,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#555',
+    marginBottom: 10
+  },
+  dot: {
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    width: 8,
+    height: 8,
+    borderRadius: 10,
+    margin: 3,
+  },
+  activeDot: {
+    backgroundColor: '#fff',
+    width: 13,
+    height: 13,
+    borderRadius: 7,
+    marginLeft: 7,
+    marginRight: 7,
   }
 });
 
