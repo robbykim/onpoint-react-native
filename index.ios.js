@@ -3,49 +3,93 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
-const CLIENT_KEY = 'uqqaepdgdqttrvgxn2g876g4';
+const Games = require('./js/games');
+const teamStorage = require('./js/teamStorage');
+const CLIENT_KEY = '907bed7a31d8fa587d85ccea44e158c9';
+const FIRST_DAY = 1473220800000;
+const ONE_WEEK = 604800000;
 
 class OnPointFantasy extends Component {
   constructor() {
     super();
     this.state = {
-      currentWeek: 0
+      games: [],
     };
   }
 
-  fetchJSON() {
-    console.log('will fetch game info');
-    const url = `https://api.sportradar.us/nfl-ot1/games/2016/REG/schedule.json?api_key=${CLIENT_KEY}`;
-    console.log(url);
-    fetch(url)
+  fetchSchedule() {
+    const currentTime = new Date().getTime();
+    let week = 1;
+    let timeDiff = currentTime - FIRST_DAY;
+    while (timeDiff > ONE_WEEK) {
+      timeDiff -= ONE_WEEK;
+      week++;
+    }
+
+    const url = `https://api.stattleship.com/football/nfl/games?week=${week}`;
+    const init = {
+      headers: {
+        Accept: 'application/vnd.stattleship.com; version=1',
+        'Content-Type': 'application/json',
+        Authorization: `Token token=${CLIENT_KEY}`,
+      }
+    }
+
+    fetch(url, init)
       .then(response => response.json())
       .then(jsonData => {
-        console.log(jsonData);
+        this.getGames(jsonData.games);
       })
-      .catch(err => console.log(`fetch error ${err}`));
+      .catch(err => console.log(err));
+  }
+
+  getGames(games) {
+    const gamesArray = [];
+    games.forEach(game => {
+      const homeTeam = teamStorage.filter(team => {
+        return team.id === game.home_team_id;
+      })[0];
+
+      const awayTeam = teamStorage.filter(team => {
+        return team.id === game.away_team_id;
+      })[0];
+
+      gamesArray.push({
+        homeTeam: homeTeam.name,
+        awayTeam: awayTeam.name,
+        homeScore: game.home_team_score,
+        awayScore: game.away_team_score,
+        period: game.period,
+        clock: game.clock,
+        startTime: game.started_at,
+      });
+    });
+
+    this.setState({
+      games: gamesArray,
+    });
   }
 
   componentDidMount() {
-    this.fetchJSON();
+    this.fetchSchedule();
   }
 
   render() {
+    const gamesArray = [];
+    this.state.games.forEach((game, index) => {
+      gamesArray.push(
+        <Games game={game} key={index} />
+      );
+    });
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu TEST
-        </Text>
-      </View>
+      <ScrollView>
+        {gamesArray}
+      </ScrollView>
     );
   }
 }
