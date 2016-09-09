@@ -35,6 +35,8 @@ class OnPointFantasy extends Component {
       isLoading: true,
       refreshing: false,
     };
+
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   // Fetch request happens in here where it will call the API and receive the
@@ -175,7 +177,7 @@ class OnPointFantasy extends Component {
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh.bind(this)}
+                  onRefresh={this._onRefresh}
                 />
               }
             >
