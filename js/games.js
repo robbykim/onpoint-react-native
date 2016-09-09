@@ -53,22 +53,27 @@ function Games(props) {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.score}>
-          {props.game.homeScore}
-          <Image
-            style={styles.logo}
-            source={{ uri: props.game.homeTeam.logo }}
-          />
-          {props.game.homeTeam.name}
+        <Image
+          style={[styles.score, styles.logo]}
+          source={{ uri: props.game.homeTeam.logo }}
+        />
+        <Image
+          style={[styles.score, styles.logo]}
+          source={{ uri: props.game.awayTeam.logo }}
+        />
+      </View>
+      <View>
+        <Text style={[styles.score, styles.team]}>
+          <Text>{props.game.homeTeam.name}</Text>
         </Text>
         <Text style={styles.score}>
-          {props.game.awayScore}
-          <Image
-            style={styles.logo}
-            source={{ uri: props.game.awayTeam.logo }}
-          />
           {props.game.awayTeam.name}
         </Text>
+      </View>
+
+      <View>
+        <Text style={styles.score}>{props.game.homeScore}</Text>
+        <Text style={styles.score}>{props.game.awayScore}</Text>
       </View>
       <View>
         <Text style={styles.score}>{quarter}</Text>
@@ -86,30 +91,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 5,
     paddingBottom: 5,
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    backgroundColor: 'lightgray',
-    margin: 5
+    backgroundColor: '#DCDCDD',
+    marginTop: 7,
+    marginBottom: 7,
+    marginLeft: 15,
+    marginRight: 15,
+    borderRadius: 5,
   },
 
   score: {
     flex: 1,
     paddingLeft: 15,
-    paddingRight: 10,
-    paddingBottom: 3,
-    paddingTop: 3,
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: 1,
+    paddingRight: 15,
+    paddingBottom: 8,
+    paddingTop: 8,
+    fontFamily: 'OpenSans',
+    color: '#46494C',
+    // borderColor: 'black',
+    // borderStyle: 'solid',
+    // borderWidth: 1
   },
 
   team: {
-    paddingLeft: 0
+    width: 180
   },
-  
+
   logo: {
-    width: 20,
+    width: 30,
     height: 20
   }
 });

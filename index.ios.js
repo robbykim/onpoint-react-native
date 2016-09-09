@@ -151,7 +151,7 @@ class OnPointFantasy extends Component {
     });
 
     return (
-      <View>
+      <View style={styles.container}>
         <Swiper
           dot={<View style={styles.dot}/>}
           activeDot={<View style={styles.activeDot}/>}
@@ -204,6 +204,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#000',
   },
+
+  container: {
+    flex: 1,
+    backgroundColor: '#C5C3C6'
+  },
+
   dot: {
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     width: 8,
@@ -211,6 +217,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 3,
   },
+
   activeDot: {
     backgroundColor: '#fff',
     width: 13,

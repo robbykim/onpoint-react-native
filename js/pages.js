@@ -10,8 +10,10 @@ import {
 function Page(props) {
   return (
     <View style={{flex: 1}}>
-      <View style={styles.title}>
-        {props.title}
+      <View style={styles.titleBar}>
+        <Text style={styles.titleText}>
+          {props.title}
+        </Text>
       </View>
       <ScrollView
         refreshControl={
@@ -28,13 +30,21 @@ function Page(props) {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    flex: 0.07,
+  titleBar: {
+    flex: 0.1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#555',
-    marginBottom: 10
+    backgroundColor: '#1985A1',
+    paddingTop: 15,
+    marginBottom: 10,
   },
+
+  titleText: {
+    color: '#DCDCDD',
+    fontFamily: 'FrancoisOne-Regular',
+    fontSize: 20,
+    letterSpacing: 1
+  }
 });
 
 module.exports = Page;
