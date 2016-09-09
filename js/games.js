@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
 
   text: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 15,
+    paddingLeft: 5,
+    paddingRight: 12,
     paddingBottom: 8,
     paddingTop: 8,
     fontFamily: 'OpenSans',
@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
   },
 
   team: {
-    width: 180
+    width: 175
   },
 
   logo: {
     width: 30,
     height: 20,
-    marginLeft: 15,
+    marginLeft: 12,
     marginTop: 8,
     marginBottom: 8,
   },
