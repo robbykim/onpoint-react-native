@@ -54,30 +54,36 @@ function Games(props) {
     <View style={styles.container}>
       <View>
         <Image
-          style={[styles.score, styles.logo]}
+          style={styles.logo}
           source={{ uri: props.game.homeTeam.logo }}
         />
         <Image
-          style={[styles.score, styles.logo]}
+          style={styles.logo}
           source={{ uri: props.game.awayTeam.logo }}
         />
       </View>
+
       <View>
-        <Text style={[styles.score, styles.team]}>
-          <Text>{props.game.homeTeam.name}</Text>
+        <Text style={[styles.text, styles.team]}>
+          {props.game.homeTeam.name}
         </Text>
-        <Text style={styles.score}>
+        <Text style={styles.text}>
           {props.game.awayTeam.name}
         </Text>
       </View>
 
       <View>
-        <Text style={styles.score}>{props.game.homeScore}</Text>
-        <Text style={styles.score}>{props.game.awayScore}</Text>
+        <Text style={[styles.text, styles.score]}>
+          {props.game.homeScore}
+        </Text>
+        <Text style={[styles.text, styles.score]}>
+          {props.game.awayScore}
+        </Text>
       </View>
-      <View>
-        <Text style={styles.score}>{quarter}</Text>
-        <Text style={styles.score}>{clock}</Text>
+      
+      <View style={styles.clock}>
+        <Text style={styles.text}>{quarter}</Text>
+        <Text style={styles.text}>{clock}</Text>
       </View>
     </View>
   );
@@ -99,17 +105,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 
-  score: {
+  text: {
     flex: 1,
-    paddingLeft: 15,
+    paddingLeft: 10,
     paddingRight: 15,
     paddingBottom: 8,
     paddingTop: 8,
     fontFamily: 'OpenSans',
     color: '#46494C',
-    // borderColor: 'black',
-    // borderStyle: 'solid',
-    // borderWidth: 1
+    fontSize: 13,
+    letterSpacing: 0.4,
+  },
+
+  score: {
+    paddingLeft: 0,
+    paddingRight: 0
   },
 
   team: {
@@ -118,7 +128,14 @@ const styles = StyleSheet.create({
 
   logo: {
     width: 30,
-    height: 20
+    height: 20,
+    marginLeft: 15,
+    marginTop: 8,
+    marginBottom: 8,
+  },
+
+  clock: {
+    alignItems: 'flex-end',
   }
 });
 
