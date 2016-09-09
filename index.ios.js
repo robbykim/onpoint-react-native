@@ -18,6 +18,9 @@ const Games = require('./js/games');
 // Internal storage of all 32 NFL team IDs
 const teamStorage = require('./js/teamStorage');
 
+// for each swiping page
+const Pages = require('./js/pages');
+
 // API Client Token for Stattleship and CONSTANTS
 const CLIENT_KEY = '907bed7a31d8fa587d85ccea44e158c9';
 const FIRST_DAY = 1473220800000;
@@ -93,8 +96,8 @@ class OnPointFantasy extends Component {
       })[0];
 
       gamesArray.push({
-        homeTeam: homeTeam.name,
-        awayTeam: awayTeam.name,
+        homeTeam: homeTeam,
+        awayTeam: awayTeam,
         homeScore: game.home_team_score,
         awayScore: game.away_team_score,
         period: game.period,
@@ -136,7 +139,7 @@ class OnPointFantasy extends Component {
     // whether a game is completed or not. Games component creates each individual
     // box score that will display on the screen
     this.state.games.forEach((game, index) => {
-      if (game.status === 'ended') {
+      if (game.status === 'closed') {
         completedGames.unshift(
           <Games game={game} key={index} />
         );
@@ -154,36 +157,18 @@ class OnPointFantasy extends Component {
           activeDot={<View style={styles.activeDot}/>}
           loop={false}
         >
-          <View style={{flex: 1}}>
-            <View style={styles.title}>
-              <Text>This Week's Games</Text>
-            </View>
-            <ScrollView
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh.bind(this)}
-                />
-              }
-            >
-              {progressGames.length ? progressGames : <Text>All Games Have Completed This Week</Text>}
-            </ScrollView>
-          </View>
-          <View style={{flex: 1}}>
-            <View style={styles.title}>
-              <Text>Completed Games</Text>
-            </View>
-            <ScrollView
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh}
-                />
-              }
-            >
-              {completedGames.length ? completedGames : <Text>No Completed Games Available</Text>}
-            </ScrollView>
-          </View>
+          <Pages
+            title={<Text>This Week's Games</Text>}
+            refreshing={this.state.refreshing}
+            _onRefresh={this._onRefresh}
+            games={progressGames}
+          />
+          <Pages
+            title={<Text>Completed Games</Text>}
+            refreshing={this.state.refreshing}
+            _onRefresh={this._onRefresh}
+            games={completedGames}
+          />
         </Swiper>
       </View>
     );
@@ -218,13 +203,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000',
-  },
-  title: {
-    flex: 0.07,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#555',
-    marginBottom: 10
   },
   dot: {
     backgroundColor: 'rgba(255, 255, 255, 0.4)',

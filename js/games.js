@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Image,
   StyleSheet
 } from 'react-native';
 
@@ -47,15 +48,30 @@ function Games(props) {
     clock = 'FT';
   }
   const time = new Date(props.game.startTime);
+  console.log(props.game.homeTeam.logo);
 
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.score}>{props.game.homeScore}  {props.game.homeTeam}</Text>
-        <Text style={styles.score}>{props.game.awayScore}  {props.game.awayTeam}</Text>
+        <Text style={styles.score}>
+          {props.game.homeScore}
+          <Image
+            style={styles.logo}
+            source={{ uri: props.game.homeTeam.logo }}
+          />
+          {props.game.homeTeam.name}
+        </Text>
+        <Text style={styles.score}>
+          {props.game.awayScore}
+          <Image
+            style={styles.logo}
+            source={{ uri: props.game.awayTeam.logo }}
+          />
+          {props.game.awayTeam.name}
+        </Text>
       </View>
       <View>
-        <Text style={[styles.score, styles.time]}>{quarter}</Text>
+        <Text style={styles.score}>{quarter}</Text>
         <Text style={styles.score}>{clock}</Text>
       </View>
     </View>
@@ -76,32 +92,26 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     margin: 5
   },
+
   score: {
     flex: 1,
     paddingLeft: 15,
     paddingRight: 10,
     paddingBottom: 3,
     paddingTop: 3,
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: 1,
   },
+
   team: {
     paddingLeft: 0
   },
-  time: {
-    justifyContent: 'flex-end'
+  
+  logo: {
+    width: 20,
+    height: 20
   }
 });
 
-
 module.exports = Games;
-
-/*
-{
-  homeTeam:
-  awayTeam:
-  homeScore:
-  awayScore:
-  period:
-  clock:
-  startTime:
-}
-*/

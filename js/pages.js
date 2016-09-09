@@ -11,20 +11,30 @@ function Page(props) {
   return (
     <View style={{flex: 1}}>
       <View style={styles.title}>
-        <Text>This Week's Games</Text>
+        {props.title}
       </View>
       <ScrollView
         refreshControl={
           <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
+            refreshing={props.refreshing}
+            onRefresh={props._onRefresh}
           />
         }
       >
-        {progressGames.length ? progressGames : <Text>All Games Have Completed This Week</Text>}
+        {props.games.length ? props.games : <Text>All Games Have Completed This Week</Text>}
       </ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    flex: 0.07,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#555',
+    marginBottom: 10
+  },
+});
 
 module.exports = Page;
