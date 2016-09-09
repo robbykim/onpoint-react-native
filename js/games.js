@@ -9,6 +9,8 @@ import {
 function Games(props) {
   let quarter;
   let clock;
+  let homeWin = {};
+  let awayWin = {};
   if (props.game.status === 'upcoming') {
     const date = new Date(props.game.startTime);
     const hour = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
@@ -46,9 +48,16 @@ function Games(props) {
   } else {
     quarter = 'Completed';
     clock = 'FT';
+    if (props.game.homeScore > props.game.awayScore) {
+      homeWin = {
+        fontFamily: 'OpenSans-Bold'
+      };
+    } else {
+      awayWin = {
+        fontFamily: 'OpenSans-Bold'
+      };
+    }
   }
-  const time = new Date(props.game.startTime);
-  console.log(props.game.homeTeam.logo);
 
   return (
     <View style={styles.container}>
@@ -64,23 +73,23 @@ function Games(props) {
       </View>
 
       <View>
-        <Text style={[styles.text, styles.team]}>
+        <Text style={[styles.text, styles.team, homeWin]}>
           {props.game.homeTeam.name}
         </Text>
-        <Text style={styles.text}>
+        <Text style={[styles.text, styles.team, awayWin]}>
           {props.game.awayTeam.name}
         </Text>
       </View>
 
       <View>
-        <Text style={[styles.text, styles.score]}>
+        <Text style={[styles.text, styles.score, homeWin]}>
           {props.game.homeScore}
         </Text>
-        <Text style={[styles.text, styles.score]}>
+        <Text style={[styles.text, styles.score, awayWin]}>
           {props.game.awayScore}
         </Text>
       </View>
-      
+
       <View style={styles.clock}>
         <Text style={styles.text}>{quarter}</Text>
         <Text style={styles.text}>{clock}</Text>

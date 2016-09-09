@@ -25,6 +25,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C1A4D99C1D82FAB60012C20C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1A4D99B1D82FAB60012C20C /* OpenSans-Regular.ttf */; };
 		C1A4D9A81D82FAC30012C20C /* FrancoisOne.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1A4D9A71D82FAC30012C20C /* FrancoisOne.ttf */; };
+		C1A4D9AA1D8311660012C20C /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1A4D9A91D8311660012C20C /* OpenSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C1A4D99B1D82FAB60012C20C /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../fonts/opensans/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		C1A4D9A71D82FAC30012C20C /* FrancoisOne.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FrancoisOne.ttf; path = ../fonts/francoisone/FrancoisOne.ttf; sourceTree = "<group>"; };
+		C1A4D9A91D8311660012C20C /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "../fonts/opensans/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +295,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C1A4D9A91D8311660012C20C /* OpenSans-Bold.ttf */,
 				C1A4D9A71D82FAC30012C20C /* FrancoisOne.ttf */,
 				C1A4D99B1D82FAB60012C20C /* OpenSans-Regular.ttf */,
 				13B07FAE1A68108700A75B9A /* OnPointFantasy */,
@@ -516,6 +519,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C1A4D99C1D82FAB60012C20C /* OpenSans-Regular.ttf in Resources */,
 				C1A4D9A81D82FAC30012C20C /* FrancoisOne.ttf in Resources */,
+				C1A4D9AA1D8311660012C20C /* OpenSans-Bold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
