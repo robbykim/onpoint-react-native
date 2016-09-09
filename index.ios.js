@@ -20,6 +20,7 @@ const teamStorage = require('./js/teamStorage');
 
 // for each swiping page
 const Pages = require('./js/pages');
+const LoadingScreen = require('./js/loadingScreen');
 
 // API Client Token for Stattleship and CONSTANTS
 const CLIENT_KEY = '907bed7a31d8fa587d85ccea44e158c9';
@@ -118,15 +119,7 @@ class OnPointFantasy extends Component {
   // will render when isLoading is true
   renderLoadingMessage() {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicatorIOS
-          animating={true}
-          color={'#fff'}
-          size={'small'}
-          style={{ margin: 15 }}
-        />
-        <Text style={{ color: '#fff' }}>Loading Scores</Text>
-      </View>
+      <LoadingScreen />
     );
   }
 
@@ -197,14 +190,6 @@ class OnPointFantasy extends Component {
 
 // stylesheet for the Component
 const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
-  },
-
   container: {
     flex: 1,
     backgroundColor: '#C5C3C6'
