@@ -132,7 +132,7 @@ class OnPointFantasy extends Component {
     // whether a game is completed or not. Games component creates each individual
     // box score that will display on the screen
     this.state.games.forEach((game, index) => {
-      if (game.status === 'closed') {
+      if (game.status === 'closed' || game.status === 'complete') {
         completedGames.unshift(
           <Games game={game} key={index} />
         );

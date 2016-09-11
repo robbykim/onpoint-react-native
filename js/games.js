@@ -43,7 +43,12 @@ function Games(props) {
     quarter = `${day} ${hour}:${minute} ${timeOfDay}`;
     clock = '';
   } else if (props.game.status === 'in_progress') {
-    quarter = `${props.game.period}th Qtr`;
+    if (props.game.period <= 4) {
+      quarter = `${props.game.period}th Qtr`;
+    } else {
+      quarter = 'OT';
+    }
+
     clock = props.game.clock;
   } else {
     quarter = 'Completed';
